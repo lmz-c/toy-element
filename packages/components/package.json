@@ -6,8 +6,7 @@
     "test": "vitest --coverage"
   },
   "dependencies": {
-    "@popperjs/core": "^2.11.8",
-    "async-validator": "^4.2.5",
+
     "vue": "^3.5.18"
   },
   "devDependencies": {
