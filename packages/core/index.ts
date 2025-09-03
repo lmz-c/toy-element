@@ -10,4 +10,4 @@ const installer = makeInstaller(components);
 // 如果用户不需要icon组件，可以不引入fontawesome的图标库
 library.add(fas);
 export default installer;
-export * from "@toy-element/components"
+export * from "../components"

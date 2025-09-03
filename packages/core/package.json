@@ -1,6 +1,6 @@
 {
-  "name": "toy-element",
-  "version": "1.0.0",
+  "name": "lmccc-toy-element",
+  "version": "1.0.3",
   "description": "Components library by Vue3 + Ts",
   "main": "./dist/umd/index.umd.cjs",
   "type": "module",
