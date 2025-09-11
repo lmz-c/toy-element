@@ -11,6 +11,7 @@
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
+    "removeComments": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
@@ -21,13 +22,18 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["vite/client", "vitest/globals"]
-
+    "types": ["node"],
+    "baseUrl": "./",
+    "paths": {
+      "@eric-ui/components": ["./packages/components"]
+    }
   },
-  "include": [ 
+  "include": [
     "env.d.ts",
-    "packages/**/*.ts", 
-    "packages/**/*.tsx", 
-    "packages/**/*.vue"
-  ]
+    "packages/core/index.ts",
+    "packages/hooks/**/*.ts",
+    "packages/utils/**/*.ts",
+    "packages/components/**/*.ts",
+  ],
+  "exclude": ["packages/components/vitest.config.ts","packages/components/index.test.ts"]
 }

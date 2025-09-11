@@ -1,5 +1,5 @@
 {
-  "name": "lmccc-toy-element",
+  "name": "toy-element",
   "version": "1.0.3",
   "description": "Components library by Vue3 + Ts",
   "main": "./dist/umd/index.umd.cjs",
@@ -15,16 +15,19 @@
       "import": "./dist/",
       "require": "./dist/"
     },
-    "sideEffects":[
+    "sideEffects": [
       "./dist/index.css"
     ]
   },
   "scripts": {
     "build": "run-p build-es build-umd",
-    "build-only":"run-p build-es build-umd",
+    "build:watch": "run-p build-es:watch build-umd:watch",
+    "build-only": "run-p build-es build-umd",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-es": "vite build --config vite.es.config.ts",
+     "build-es:watch": "vite build --watch --config vite.es.config.ts",
     "build-umd": "vite build --config vite.umd.config.ts",
+     "build-umd:watch": "vite build --watch --config vite.umd.config.ts",
     "move-style": "move-file dist/es/index.css dist/index .css"
   },
   "dependencies": {
@@ -39,10 +42,11 @@
   "license": "ISC",
   "packageManager": "pnpm@10.14.0",
   "devDependencies": {
-    "vite-plugin-dts": "3.9.1",
-    "@toy-element/components": "workspace:*"
+    "@toy-element/components": "workspace:*",
+    "vite-plugin-compression2": "^2.2.1",
+    "vite-plugin-dts": "3.9.1"
   },
-   "peerDependencies": {
+  "peerDependencies": {
     "vue": "^3.4.27"
   }
 }

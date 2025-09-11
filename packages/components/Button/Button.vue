@@ -1,65 +1,68 @@
 <script setup lang="ts">
-import type { ButtonProps,ButtonEmits,ButtonInstance } from './types'
-import { ref, computed } from 'vue'
-import { throttle } from 'lodash-es';
-import  ErIcon  from '../Icon/Icon.vue';
-
+import { ref, computed, inject } from "vue";
+import type { ButtonProps, ButtonEmits, ButtonInstance } from "./types";
+import { BUTTON_GROUP_CTX_KEY } from "./constants";
+import { throttle } from "lodash-es";
+import ErIcon from "../Icon/Icon.vue";
 defineOptions({
-  name: 'ErButton',
-})
-
-// 定义 props，带默认值
+  name: "ErButton",
+});
 const props = withDefaults(defineProps<ButtonProps>(), {
-  tag: 'button',
-  nativeType: 'button',
-  useThrottle:true,
-  throttleDuration:500
-})
-
-// 定义事件
-const emit = defineEmits<ButtonEmits>()
-
-// DOM 引用
-const _ref = ref<HTMLButtonElement>()
-
-defineExpose<ButtonInstance>({
-  ref: _ref,
-})
-
-// 如果有默认插槽就给一个mr
+  tag: "button",
+  nativeType: "button",
+  useThrottle: true,
+  throttleDuration: 500,
+});
+const emits = defineEmits<ButtonEmits>();
 const slots = defineSlots();
+const buttonGroupCtx = inject(BUTTON_GROUP_CTX_KEY, void 0);
+
+const _ref = ref<HTMLButtonElement>();
+const size = computed(() => buttonGroupCtx?.size ?? props.size ?? "");
+const type = computed(() => buttonGroupCtx?.type ?? props.type ?? "");
+const disabled = computed(
+  () => props.disabled || buttonGroupCtx?.disabled || false
+);
 const iconStyle = computed(() => ({
   marginRight: slots.default ? "6px" : "0px",
 }));
 
-// 点击事件，触发 emit
-const handleBtnClick = (evt: MouseEvent) => emit('click', evt)
-const handleBtnClickThrottle = throttle(handleBtnClick, props.throttleDuration) ;
+const handleBtnClick = (e: MouseEvent) => {
+  emits("click", e);
+};
+const handlBtneCLickThrottle = throttle(handleBtnClick, props.throttleDuration);
+
+defineExpose<ButtonInstance>({
+  ref: _ref,
+  disabled,
+  size,
+  type,
+});
 </script>
 
 <template>
-  <!-- 这里可以不用写props，因为template下自动调用props -->
   <component
-    :is="props.tag"
-    :autofocus="props.autofocus"
-    :type="props.tag === 'button' ? props.nativeType : void 0"
-    :ref="_ref"
+    :is="tag"
+    ref="_ref"
     class="er-button"
-    :disabled="props.disabled || props.loading ? true : void 0"
     :class="{
-      [`er-button--${props.type}`]: props.type,
-      [`er-button--${props.size}`]: props.size,
-      'is-plain': props.plain,
-      'is-round': props.round,
-      'is-circle': props.circle,
-      'is-loading': props.loading,
-      'is-disabled': props.disabled
+      [`er-button--${type}`]: type,
+      [`er-button--${size}`]: size,
+      'is-plain': plain,
+      'is-round': round,
+      'is-circle': circle,
+      'is-disabled': disabled,
+      'is-loading': loading,
     }"
-    @click="(e:MouseEvent)=>
-      props.useThrottle ? handleBtnClickThrottle(e) : handleBtnClick(e)
+    :disabled="disabled || loading ? true : void 0"
+    :type="tag === 'button' ? nativeType : void 0"
+    :autofocus="autofocus"
+    @click="
+      (e: MouseEvent) =>
+        useThrottle ? handlBtneCLickThrottle(e) : handleBtnClick(e)
     "
   >
-  <template v-if="loading">
+    <template v-if="loading">
       <slot name="loading">
         <er-icon
           class="loading-icon"
@@ -81,5 +84,5 @@ const handleBtnClickThrottle = throttle(handleBtnClick, props.throttleDuration) 
 </template>
 
 <style scoped>
-@import './style.css';
+@import "./style.css";
 </style>
