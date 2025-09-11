@@ -140,32 +140,27 @@ describe("Collapse.vue", () => {
     expect(secondHeader.classes()).toContain("is-active");
   });
 
-  test("手风琴模式 错误处理", () => {
-    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-    mount(
-      () => (
-        <Collapse accordion modelValue={["a", "b"]} {...{ onChange }}>
-          <CollapseItem name="a" title="title a">
-            content a
-          </CollapseItem>
-          <CollapseItem name="b" title="title b">
-            content b
-          </CollapseItem>
-          <CollapseItem name="c" title="title c" disabled>
-            content c
-          </CollapseItem>
-        </Collapse>
-      ),
-      {
-        global: {
-          stubs: ["ErIcon"],
-        },
-      }
-    );
-    expect(warn.mock.calls).toMatchInlineSnapshot(
-      `[]`
-    );
-  });
+test("手风琴模式 错误处理", () => {
+  const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+  mount(
+    () => (
+      <Collapse accordion modelValue={["a", "b"]} {...{ onChange }}>
+        <CollapseItem name="a" title="title a">content a</CollapseItem>
+        <CollapseItem name="b" title="title b">content b</CollapseItem>
+        <CollapseItem name="c" title="title c" disabled>content c</CollapseItem>
+      </Collapse>
+    ),
+    { global: { stubs: ["ErIcon"] } }
+  );
+  expect(warn.mock.calls).toMatchInlineSnapshot(`
+    [
+      [
+        [ErUIError: [ErCollapse] 手风琴模式下，只能有一个折叠面板处于展开状态],
+      ],
+    ]
+  `);
+});
+
 });
 
 // describe("Collapse/transitionEvents.ts", () => {
