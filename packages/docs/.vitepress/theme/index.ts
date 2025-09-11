@@ -3,7 +3,7 @@ import { type App } from "vue";
 import ToyElement from "toy-element";
 import { ElementPlusContainer } from "@vitepress-demo-preview/component";
 
-import "@vitepress-preview/component/style.css";
+import "@vitepress-demo-preview/component/style.css";
 import "toy-element/dist/index.css";
 
 export default {
