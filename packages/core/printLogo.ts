@@ -1,5 +1,5 @@
 export default function () {
-  if (PROD) {
+  if (import.meta.env.PROD) {
     const logo = `
 ______________________________________________________________________________
   __                                .__                                __   
@@ -8,11 +8,9 @@ _/  |_  ____ ___.__.           ____ |  |   ____   _____   ____   _____/  |_
  |  | (  <_> )___  | /_____/ \  ___/|  |_\  ___/|  Y Y  \  ___/|   |  \  |  
  |__|  \____// ____|          \___  >____/\___  >__|_|  /\___  >___|  /__|  
              \/                   \/          \/      \/     \/     \/      
-                                                                                                                                                                                                                                 
 ______________________________________________________________________________
               author:lmccc
 `;
-
     const rainbowGradient = `
 background: linear-gradient(135deg, orange 60%, cyan);
 background-clip: text;
@@ -22,9 +20,8 @@ line-height: 1;
 font-family: monospace;
 font-weight: 600;
 `;
-
     console.info(`%c${logo}`, rainbowGradient);
-  } else if (DEV) {
-    console.log("[EricUI]:dev mode...");
+  } else if (import.meta.env.DEV) {
+    console.log("[ToyElement]: dev mode...");
   }
 }
