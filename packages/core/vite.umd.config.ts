@@ -5,7 +5,8 @@ import { defer, delay } from "lodash-es";
 import {compression } from "vite-plugin-compression2";
 import {resolve} from "path";
 import shell from "shelljs";
-import hooks from "./hooksPlugins";
+import {hooksplugin as hooks} from "@toy-element/vite-plugins";
+
 import terser from "@rollup/plugin-terser";
 
 const TRY_MOVE_STYLES_DELAY = 750 as const;

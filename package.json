@@ -3,19 +3,25 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "cross-env NODE_ENV=production pnpm --filter toy-element build",
+    "build": "run-s build-hooks build-comp",
     "build:dev": "cross-env NODE_ENV=development pnpm --filter toy-element build:watch",
+    "build-hooks": "cross-env NODE_ENV=production pnpm --filter @toy-element/hooks build",
+    "build-comp": "cross-env NODE_ENV=production pnpm --filter @toy-element/components build",
     "dev": "pnpm --filter @toy-element/play dev",
     "story": "pnpm --filter @toy-element/play storybook",
     "docs:dev": "pnpm --filter @toy-element/docs dev",
     "docs:build": "pnpm --filter @toy-element/docs build",
-    "test": "cross-env NODE_ENV=test pnpm --filter @toy-element/components test"
+    "test-utils": "cross-env NODE_ENV=test pnpm --filter @toy-element/utils test",
+    "test-comp": "cross-env NODE_ENV=test pnpm --filter @toy-element/components test",
+    "test-hooks": "cross-env NODE_ENV=test pnpm --filter @toy-element/hooks test",
+    "test": "run-s test-utils test-comp"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/vue-fontawesome": "^3.0.6",
     "@popperjs/core": "^2.11.8",
+    "@rollup/plugin-commonjs": "^28.0.6",
     "@rollup/plugin-terser": "^0.4.4",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.12.12",
@@ -55,6 +61,7 @@
     "@toy-element/hooks": "workspace:*",
     "@toy-element/theme": "workspace:*",
     "@toy-element/utils": "workspace:*",
+    "@toy-element/vite-plugins": "workspace:*",
     "lodash-es": "^4.17.21",
     "toy-element": "workspace:*",
     "vue": "^3.5.18"

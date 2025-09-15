@@ -5,8 +5,8 @@ import { readFile} from "fs";
 import {delay ,filter, map,defer} from "lodash-es";
 import dts from "vite-plugin-dts";
 import shell from "shelljs";
-import hooks from "./hooksPlugins";
-
+// import hooks from "./hooksPlugins";
+import {hooksplugin as hooks} from "@toy-element/vite-plugins";
 
 const TRY_MOVE_STYLES_DELAY = 750 as const;
 function moveStyles() {
